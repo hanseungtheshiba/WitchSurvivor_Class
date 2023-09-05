@@ -66663,6 +66663,9 @@ MonoBehaviour:
   - objectName: Enemy
     prefab: {fileID: 4619942935681531423, guid: 2873634a6627bf64daf2ced14c7a9307, type: 3}
     count: 10
+  - objectName: Whip
+    prefab: {fileID: 5392723759429517536, guid: 9715b0dcd4a2e4a4b90bd629061093c3, type: 3}
+    count: 1
 --- !u!1 &2106812773
 GameObject:
   m_ObjectHideFlags: 0
@@ -67154,6 +67157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  coolTime: 1.35
 --- !u!114 &3943909166139598996
 MonoBehaviour:
   m_ObjectHideFlags: 0

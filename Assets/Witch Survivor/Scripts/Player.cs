@@ -5,15 +5,19 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 3f;
+    [SerializeField]
+    private float coolTime = 1.35f;
 
     private Rigidbody2D rigid2D;
     private Animator animator;
+
     public Vector2 moveDirection { get; private set; }
 
     private void Awake()
     {
         rigid2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        InvokeRepeating("Attack", coolTime, coolTime);
     }
 
     private void FixedUpdate()
@@ -38,5 +42,11 @@ public class Player : MonoBehaviour
     private void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
+    }
+
+    private void Attack()
+    {
+        GameObject whip = PoolManager.Instance.Spawn("Whip");
+        whip.transform.SetParent(transform);
     }
 }
