@@ -16,6 +16,8 @@ public class Reposition : MonoBehaviour
             return;
         }
 
+        if (GameManager.Instance.CurrentPlayer == null) return;
+
         Vector3 playerPosition = GameManager.Instance.CurrentPlayer.transform.position;
         Vector3 mapPosition = transform.position;
         float diffX = Mathf.Abs(playerPosition.x - mapPosition.x);

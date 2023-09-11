@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Area
   - Ground
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 175397575
+    locked: 0
+  - name: Effect
+    uniqueID: 3154694215
     locked: 0

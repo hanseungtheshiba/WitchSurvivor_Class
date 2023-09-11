@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6062328747066924723}
   m_Layer: 6
   m_Name: Whip
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f107aa3ce3da8e444921a79956e9dd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atk: 3
+  weaponData:
+    atk: 3
+    atkRemain: 0.5
+    coolTime: 1.35
+    knockback: 1
 --- !u!1 &7133925498560353829
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,9 +240,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1140273081
+  m_SortingLayer: 3
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1031259462, guid: bed6834f23606e343ba999419ff20ef3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

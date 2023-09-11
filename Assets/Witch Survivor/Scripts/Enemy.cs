@@ -44,6 +44,11 @@ public class Enemy : Poolable
             return;
         }
 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        {
+            return;
+        }
+
         dirVector = target.position - rigid.position;
 
         float xScale = dirVector.x < 0 ? -1f : 1f;
@@ -53,11 +58,10 @@ public class Enemy : Poolable
         rigid.MovePosition(rigid.position + nextPosition);
     }
 
-    public void Damage(float damage)
+    public void Damage(Attack atk)
     {
-        health -= damage;
-
-        StartCoroutine(Knockback(damage));
+        health -= atk.weaponData.atk;
+        StartCoroutine(Knockback(atk.weaponData.knockback));
 
         if (health > 0f)
         {
@@ -70,8 +74,9 @@ public class Enemy : Poolable
     }
 
     private IEnumerator Knockback(float knockback)
-    {
+    {        
         yield return wait;
+        DoKnockback(knockback);
     }
 
     private void DoKnockback(float distance = 2f)
@@ -79,5 +84,17 @@ public class Enemy : Poolable
         Vector3 playerPosition = GameManager.Instance.CurrentPlayer.transform.position;
         Vector3 dirVector = transform.position - playerPosition;
         rigid.AddRelativeForce(dirVector.normalized * distance, ForceMode2D.Impulse);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Attack"))
+        {
+            Attack atk = collision.GetComponent<Attack>();
+
+            if (atk == null) return;
+
+            Damage(atk);
+        }
     }
 }
