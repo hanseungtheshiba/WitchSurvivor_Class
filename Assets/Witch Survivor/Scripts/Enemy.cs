@@ -60,8 +60,8 @@ public class Enemy : Poolable
 
     public void Damage(Attack atk)
     {
-        health -= atk.weaponData.atk;
-        StartCoroutine(Knockback(atk.weaponData.knockback));
+        health -= atk.currentSkill.atk;
+        StartCoroutine(Knockback(atk.currentSkill.knockback));
 
         if (health > 0f)
         {
@@ -96,5 +96,11 @@ public class Enemy : Poolable
 
             Damage(atk);
         }
+    }
+
+    public override void Release()
+    {
+        transform.position = Vector3.zero;
+        base.Release();
     }
 }

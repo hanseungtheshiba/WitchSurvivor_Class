@@ -3,10 +3,12 @@ using UnityEngine;
 public class Reposition : MonoBehaviour
 {
     private CompositeCollider2D col = null;
+    private Spawner spawner = null;
 
     private void Awake()
     {
         col = GetComponent<CompositeCollider2D>();
+        spawner = FindObjectOfType<Spawner>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -16,6 +18,7 @@ public class Reposition : MonoBehaviour
             return;
         }
 
+        if (GameManager.Instance == null) return; 
         if (GameManager.Instance.CurrentPlayer == null) return;
 
         Vector3 playerPosition = GameManager.Instance.CurrentPlayer.transform.position;
@@ -43,6 +46,9 @@ public class Reposition : MonoBehaviour
                     transform.Translate(Vector3.right * dirX * col.bounds.size.x * 2f);
                     transform.Translate(Vector3.up * dirY * col.bounds.size.y * 2f);
                 }
+                break;
+            case "Enemy":                
+                spawner.SpawnAtRandomPoint(gameObject);
                 break;
         }
     }

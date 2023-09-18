@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private Transform[] points = null;
+    public Transform[] points { get; private set; }
 
     private void Awake()
     {
@@ -15,10 +15,18 @@ public class Spawner : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.E))
         {
-            Transform point = points[Random.Range(1, points.Length)];
             GameObject newEnemy = PoolManager.Instance.Spawn("Enemy");
-            newEnemy.transform.SetParent(point, false);
-            newEnemy.transform.parent = null;
+            SpawnAtRandomPoint(newEnemy);
         }
+    }
+
+    public void SpawnAtRandomPoint(GameObject enemy) 
+    {
+        if (!enemy.activeInHierarchy) return;
+
+        Transform point = points[Random.Range(1, points.Length)];        
+        enemy.transform.SetParent(point, false);
+        enemy.transform.localPosition = Vector3.zero;
+        enemy.transform.parent = null;
     }
 }

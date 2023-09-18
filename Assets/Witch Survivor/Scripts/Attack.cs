@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Attack : Poolable
 {
-    public WeaponData weaponData;
+    public SkillData currentSkill { get; private set; }
     
     private void OnEnable()
-    {
-        Invoke("Release", weaponData.atkRemain);
+    {        
+        Invoke("Release", currentSkill.remainTime);
     }
     
     public override void Release()
@@ -17,13 +17,8 @@ public class Attack : Poolable
         base.Release();
     }
 
-    public void SetWeaponData(WeaponData newData)
+    public void SetSkillData(Skill skill)
     {
-        // weaponData = newData;
-        // 임시 데이터
-        weaponData = new WeaponData();
-        weaponData.atk = 3f;
-        weaponData.atkRemain = 0.5f;
-        weaponData.coolTime = 1.35f;
+
     }
 }
