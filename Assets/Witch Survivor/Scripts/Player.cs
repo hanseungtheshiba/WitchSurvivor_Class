@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float coolTime = 1.35f;
 
-    private Rigidbody2D rigid2D;
-    private Animator animator;
+    private Rigidbody2D rigid2D = null;
+    private Animator animator = null;
+    private SkillSlot[] skillSlots = null;
 
     public Vector2 moveDirection { get; private set; }
 
@@ -17,7 +19,13 @@ public class Player : MonoBehaviour
     {
         rigid2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        InvokeRepeating("Attack", coolTime, coolTime);
+        skillSlots = GetComponentsInChildren<SkillSlot>();        
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitUntil(() => GameManager.Instance != null);
+        SetSkillSlot();
     }
 
     private void FixedUpdate()
@@ -48,11 +56,11 @@ public class Player : MonoBehaviour
         moveDirection = value.Get<Vector2>();
     }
 
-    private void Attack()
+    private void SetSkillSlot()
     {
-        GameObject whip = PoolManager.Instance.Spawn("Whip");
-        whip.transform.SetParent(transform);
-        whip.transform.localPosition = Vector3.zero;
-        whip.transform.localScale = Vector3.one;
+        for(int i = 0; i < skillSlots.Length; i++)
+        {
+            skillSlots[i].Init(i);
+        }
     }
 }

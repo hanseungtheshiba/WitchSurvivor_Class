@@ -3,12 +3,7 @@ using UnityEngine;
 public class Attack : Poolable
 {
     public SkillData currentSkill { get; private set; }
-    
-    private void OnEnable()
-    {        
-        Invoke("Release", currentSkill.remainTime);
-    }
-    
+        
     public override void Release()
     {
         transform.parent = null;
@@ -17,8 +12,9 @@ public class Attack : Poolable
         base.Release();
     }
 
-    public void SetSkillData(Skill skill)
+    public void SetAttack(SkillData skillData)
     {
-
+        currentSkill = skillData;
+        Invoke("Release", currentSkill.remainTime);
     }
 }

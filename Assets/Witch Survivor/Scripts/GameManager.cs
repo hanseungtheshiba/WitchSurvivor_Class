@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     public Player CurrentPlayer { get; private set; }
-    public Dictionary<string, Skill> skillDictionary;    
+    public List<Skill> skillList;
 
     private void Awake()
     {
